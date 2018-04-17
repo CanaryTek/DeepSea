@@ -534,20 +534,12 @@ class Validate(object):
         At least one minion has a master role
         """
         found = False
-        matched = False
         for node in self.data.keys():
             if 'roles' in self.data[node] and 'master' in self.data[node]['roles']:
 
                 found = True
-                if 'master_minion' in self.data[node] and node == self.data[node]['master_minion']:
-                    matched = True
-
         if not found:
             msg = "No minion assigned master role"
-            self.errors['master_role'] = [msg]
-
-        if not matched:
-            msg = "The master_minion does not match any minion assigned the master role"
             self.errors['master_role'] = [msg]
 
         self._set_pass_status('master_role')
